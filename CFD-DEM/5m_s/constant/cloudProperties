@@ -1,0 +1,254 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  9
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      cloudProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+type        collidingCloud;
+
+solution
+{
+    coupled         true; //true for influence of lagr. on euler. phase
+    transient       true; //true for transient sim.
+    cellValueSourceCorrection on; //correction of momentum transfer to Eulerian
+
+    interpolationSchemes
+    {
+        rho.air         cell;
+        U.air           cellPoint;
+        mu.air          cell;
+        alpha.air       cell;
+        //curlUcDt        cell; //used for lift force calc.
+        //DucDt.air cell; //used for pressure Gradient force calc.
+        /*Available schemes: cell, cellPoint, cellPatchConstranined,
+                             cellPointFace, cellPointWallModified, pointMVC*/
+    }
+
+    averagingMethod dual; //only for MPPIC
+
+    integrationSchemes
+    {
+        U               Euler; //Euler or analytical
+    }
+
+    sourceTerms
+    {
+        schemes
+        {
+            U           semiImplicit 1;
+            //explicit or semiImplicit, relax.coeff for each field
+        }
+    }
+}
+
+constantProperties
+{
+    //parcelTypeId    1;
+
+    //rhoMin          1e-15;
+    //minParcelMass   1e-15;
+
+    rho0            7980;
+    youngsModulus   2.1e7;//2.1e9; 2.1e11;
+    poissonsRatio   0.3;
+
+    constantVolume  false;
+
+    //alphaMax        0.99; //not needed by collidingCloud
+}
+
+subModels
+{
+    particleForces
+    {
+        //sphereDrag;
+        gravity;
+        // SaffmanMeiLiftForce
+        // {
+        //     U   U.air;
+        // }
+        /*PlessisMasliyahDrag //MPPIC
+        {
+            alphac alpha.air;
+        }*/
+        ErgunWenYuDrag
+        {
+            alphac    alpha.air;
+        }
+    }
+
+    injectionModels
+    {
+        model1
+        {
+            type            patchInjection;
+            massTotal       0.001;    //kg
+            parcelBasisType fixed;
+            patchName       inlet;
+            U0              (0 0 5);
+            nParticle       1;
+            //massFlowRate    0.001;    //kg/s -> 299.16e3particles/s = 1g/s
+            parcelsPerSecond 150e3;
+            flowRateProfile constant 1;
+            SOI             0;
+            duration        1;
+            sizeDistribution
+            {
+                type        normal;
+                normalDistribution
+                {
+                    expectation 100e-6;    //4.1888e-12m^3 -> 33.426e-9kg steel
+                    variance     10e-6;
+                    minValue     45e-6;
+                    maxValue    150e-6;
+                }
+            }
+        }
+    }
+
+    dispersionModel none;
+
+    patchInteractionModel localInteraction;
+
+    localInteractionCoeffs
+    {
+        patches
+        (
+            walls
+            {
+                type rebound;
+                e    0.9;
+                mu   0.1;
+            }
+
+            "inlet|outlet"
+            {
+                type escape;
+            }
+        );
+    }
+
+    heatTransferModel none;
+
+    surfaceFilmModel none;
+
+    collisionModel pairCollision;
+
+    pairCollisionCoeffs
+    {
+        maxInteractionDistance  100e-6;
+
+        writeReferredParticleCloud no;
+
+        pairModel PairSpringSliderDashpotMod1;
+
+        PairSpringSliderDashpotMod1Coeffs
+        {
+            useEquivalentSize   no;
+            alpha               0.12; //function of restitution coeff
+            b                   1.5;  //=1->linear =3/2->Hertz
+            mu                  0.52; //friction coeff
+            cohesionEnergyDensity 0;
+            collisionResolutionSteps 24;
+        };
+
+        wallModel wallLocalSpringSliderDashpotMod1;
+
+        wallLocalSpringSliderDashpotMod1Coeffs
+        {
+            useEquivalentSize no;
+            collisionResolutionSteps 24;
+            walls
+            {
+                youngsModulus   1e7;
+                poissonsRatio   0.23;
+                alpha           0.12; //function of restitution coeff
+                b               1.5;  //=1->linear =3/2->Hertz
+                mu              0.43; //friction coeff
+                cohesionEnergyDensity 0;
+                }
+        };
+
+        U     U.air;
+    }
+
+    /*packingModel explicit;
+
+    explicitCoeffs
+    {
+        particleStressModel
+        {
+            type HarrisCrighton;
+            alphaPacked 0.65;
+            pSolid 10.0;
+            beta 2.0;
+            eps 1.0e-7;
+        }
+        correctionLimitingMethod
+        {
+            type absolute;
+            e 0.9;
+        }
+    }
+
+    implicitCoeffs
+    {
+        alphaMin 0.0001;
+        rhoMin 1.0;
+        applyLimiting true;
+        applyGravity false;
+        particleStressModel
+        {
+            type HarrisCrighton;
+            alphaPacked 0.65;
+            pSolid 5.0;
+            beta 2.0;
+            eps 1.0e-2;
+        }
+    }
+
+    dampingModel relaxation;
+
+    relaxationCoeffs
+    {
+        timeScaleModel
+        {
+            type nonEquilibrium;
+            alphaPacked 0.65;
+            e 0.9;
+        }
+    }
+
+    isotropyModel stochastic;
+
+    stochasticCoeffs
+    {
+        timeScaleModel
+        {
+            type isotropic;
+            alphaPacked 0.65;
+            e 0.9;
+        }
+    }*/
+
+    stochasticCollisionModel none;
+
+    radiation off;
+}
+
+
+cloudFunctions
+{}
+
+
+// ************************************************************************* //

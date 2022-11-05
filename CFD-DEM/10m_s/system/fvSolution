@@ -1,0 +1,116 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  9
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      fvSolution;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+solvers
+{
+    alpha.air
+    {
+        max             0.99;
+    }
+
+    p
+    {
+        solver          GAMG;
+        tolerance       1e-06;
+        relTol          0.05;
+        smoother        GaussSeidel;
+    }
+
+    pFinal
+    {
+        solver          GAMG;
+        tolerance       1e-06;
+        relTol          0;
+        smoother        GaussSeidel;
+    }
+
+    "(U|k|epsilon).*"
+    {
+        solver          PBiCG;
+        preconditioner  DILU;
+        tolerance       1e-05;
+        relTol          0.1;
+    }
+
+    "(U|k|epsilon).*Final"
+    {
+        solver          PBiCG;
+        preconditioner  DILU;
+        tolerance       1e-05;
+        relTol          0;
+    }
+    /*valid symmeric matrix solvers: GAMG, PBiCGStab, PCG, smoothSolver*/
+
+    cloud:alpha
+    {
+        solver          GAMG;
+        tolerance       1e-06;
+        relTol          0;
+        smoother        GaussSeidel;
+    }
+}
+
+PIMPLE
+{
+    nOuterCorrectors 50; //pressure-momentum correction loops
+    nCorrectors     2;   //pressure correction loops
+    momentumPredictor yes;
+    nNonOrthogonalCorrectors 0;
+    pRefCell        0;
+    pRefValue       0;
+
+    residualControl
+    {
+        U.*       1e-5;
+        p       5e-4;
+        "(k|epsilon|omega).*" 1e-5;
+    }
+    outerCorrectorResidualControl
+    {
+        U.*
+        {
+            tolerance 1e-5;
+            relTol    0.01;
+        }
+        p
+        {
+            tolerance 5e-4;
+            relTol    0.01;
+        }
+        "(k|epsilon|omega).*"
+        {
+            tolerance 1e-5;
+            relTol    0;
+        }
+    }
+}
+
+relaxationFactors
+{
+    fields
+    {
+        p       0.3;
+        pFinal    1;
+    }
+    equations
+    {
+        "(U|k|epsilon|omega).*"       0.5;
+        "(U|k|epsilon|omega).*Final"    1;
+    }
+}
+
+
+// ************************************************************************* //

@@ -1,0 +1,111 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  9
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+application     denseParticleFoamMod1;
+
+startFrom       latestTime; //startTime;
+
+//startTime       0.1;
+
+stopAt          endTime;
+
+endTime         0.05;
+
+deltaT          1e-5;
+
+adjustTimeStep  false;
+
+maxCo           0.75;
+
+writeControl    adjustableRunTime; //timeStep;
+
+writeInterval   0.0001;
+
+purgeWrite      0;
+
+writeFormat     ascii;
+
+writePrecision  6;
+
+writeCompression off;
+
+timeFormat      general;
+
+timePrecision   6;
+
+runTimeModifiable yes;
+
+functions
+{
+    inletPressure
+    {
+        //From tutorials/.../sloshingTank2D
+        type            surfaces;
+        libs            ("libsampling.so");
+        writeControl    timeStep  //runTime;timeStep;...
+        writeInterval   1;        //1e-4;   1;
+        surfaceFormat   vtk;      //raw;VTK;...
+        fields
+        (
+            p
+        );
+        interpolationScheme cellPoint;
+
+        surfaces
+        (
+            inlet
+            {
+                type        patch;
+                patches     (inlet);
+                triangulate false;
+            }
+        );
+    }
+    
+    outletAlpha
+    {
+        type            surfaces;
+        libs            ("libsampling.so");
+        writeControl    timeStep  //runTime;timeStep;...
+        writeInterval   1;        //1e-4;   1;
+        surfaceFormat   vtk;      //raw;VTK;...
+        fields
+        (
+            alpha.air
+        );
+        interpolationScheme cellPoint;
+
+        surfaces
+        (
+            outlet
+            {
+                type        patch;
+                patches     (outlet);
+                triangulate false;
+            }
+        );
+    }
+    
+    stop
+    {
+        type       stopAtClockTime;
+        libs       ("libutilityFunctionObjects.so");
+        stopTime   16000;
+        action     noWriteNow;
+    }
+}
+
+// ************************************************************************* //

@@ -1,0 +1,25 @@
+set border lw 2
+set logscale y
+set format y "%g"
+set title "Residuals" font "arial,22"
+set ylabel "Residual" font "arial,18"
+set xlabel "Iteration" font "arial,18"
+set key width 1
+
+plot "< grep -wns 'Doing final iteration' log.dense*  -A 4 | grep 'Solving for U.airx' | cut -d' ' -f13 | tr -d ','" title 'U.airx' with lines lw 1,\
+"< grep -ns 'Doing final iteration' log.dense*  -A 4 | grep 'Solving for U.airy' | cut -d' ' -f13 | tr -d ','" title 'U.airy' with lines lw 1,\
+"< grep -ns 'Doing final iteration' log.dense*  -A 4 | grep 'Solving for U.airz' | cut -d' ' -f13 | tr -d ','" title 'U.airz' with lines lw 1,\
+"<grep -ns 'PIMPLE: Converged in ' log.dense*  -B 2 | grep 'Solving for p' | cut -d' ' -f13 | tr -d ','" title 'p' with lines lw 1
+pause 2
+reread
+
+
+#plot "< cat log.denseParticleFoam | grep 'Solving for U.airx' | cut -d' ' -f13 | tr -d ','" title 'U.airx' with lines lw 1,\
+#"< cat log.denseParticleFoam | grep 'Solving for U.airy' | cut -d' ' -f13 | tr -d ','" title 'U.airy' with lines lw 1,\
+#"< cat log.denseParticleFoam | grep 'Solving for U.airz' | cut -d' ' -f13 | tr -d ','" title 'U.airz' with lines lw 1,\
+#"< cat log.denseParticleFoam | grep 'Solving for p' | cut -d' ' -f13 | tr -d ','" title 'p' with lines lw 1
+
+#plot "grep -wns 'Doing final iteration' log.dense*  -A 10 | grep 'Solving for U.airx' | cut -d' ' -f13 | tr -d ','" title 'U.airx' with lines lw 1,\
+#"grep -ns 'Doing final iteration' log.dense*  -A 10 | grep 'Solving for U.airy' | cut -d' ' -f13 | tr -d ','" title 'U.airy' with lines lw 1,\
+#"grep -ns 'Doing final iteration' log.dense*  -A 10 | grep 'Solving for U.airz' | cut -d' ' -f13 | tr -d ','" title 'U.airz' with lines lw 1,\
+#"grep -ns 'Doing final iteration' log.dense*  -A 10 | grep 'Solving for p' | cut -d' ' -f13 | tr -d ','" title 'p' with lines lw 1
