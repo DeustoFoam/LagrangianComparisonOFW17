@@ -1,6 +1,9 @@
 # Default ignored files
 /shelf/
 /workspace.xml
+
+# OpenFOAM specific ignored files and folders
+# --- from https://petebachant.me/track-changes-to-openfoam-case-files-with-git/
 *.gz
 log.*
 postProcessing
@@ -9,11 +12,15 @@ processor*
 [0-9]*
 [0-9]*.[0-9]*
 !0.org
-!0/
 constant/extendedFeatureEdgeMesh
 *.eMesh
 constant/polyMesh/*
 !constant/polyMesh/blockMeshDict
 constant/cellToRegion
 *.OpenFOAM
+# --- added by me
 vtk/
+!0/
+
+desktop.ini
+

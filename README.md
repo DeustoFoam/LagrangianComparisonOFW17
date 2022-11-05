@@ -1,3 +1,5 @@
+# README for OFW17_caseFilesREADME.txt
+
 This work uses OpenFOAM v9. It does not require the installation of other resources.
 
 The runs are initialized: the folder 0/ contains the steady state conditions for the gas flow only, initialized through the same solver, increasing the timestep, and disabling particle injection. The script to run this is Allrun. The initial conditions are contained in BASE_0/
