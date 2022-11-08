@@ -18,10 +18,14 @@ constant/polyMesh/*
 !constant/polyMesh/blockMeshDict
 constant/cellToRegion
 *.OpenFOAM
+
+
 # --- added by me
 vtk/
 VTK/
 !0/
 
-desktop.ini
+runCases/*
+!runCases/*.sh
 
+desktop.ini
