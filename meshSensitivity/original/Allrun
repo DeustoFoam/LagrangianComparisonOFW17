@@ -8,13 +8,15 @@ m4 system/blockMeshDict.m4 > system/blockMeshDict
 
 runApplication blockMesh
 
-FILE=/system/decomposeParDict
+FILE=./system/decomposeParDict
 if test -f "$FILE"; then
+    echo "Running in parallel"
     runApplication decomposePar
     runParallel $(getApplication)
     runApplication reconstructPar
     rm -r ./processor*
 else
+    echo "Running on a single core"
     runApplication $(getApplication)
 fi
 

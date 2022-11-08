@@ -14,25 +14,21 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-application     denseParticleFoamMod1;
+application     simpleFoam;
 
-startFrom       latestTime; //startTime;
+startFrom       startTime;
 
-//startTime       0.1;
+startTime       0;
 
 stopAt          endTime;
 
-endTime         0.1;
+endTime         40;
 
-deltaT          2e-5;
+deltaT          1;
 
-adjustTimeStep  true;
+writeControl    timeStep;
 
-maxCo           0.75;
-
-writeControl    adjustableRunTime; //timeStep;
-
-writeInterval   0.0002;
+writeInterval   1;
 
 purgeWrite      0;
 
@@ -47,65 +43,5 @@ timeFormat      general;
 timePrecision   6;
 
 runTimeModifiable yes;
-
-functions
-{
-    inletPressure
-    {
-        //From tutorials/.../sloshingTank2D
-        type            surfaces;
-        libs            ("libsampling.so");
-        writeControl    timeStep  //runTime;timeStep;...
-        writeInterval   1;        //1e-4;   1;
-        surfaceFormat   vtk;      //raw;VTK;...
-        fields
-        (
-            p
-        );
-        interpolationScheme cellPoint;
-
-        surfaces
-        (
-            inlet
-            {
-                type        patch;
-                patches     (inlet);
-                triangulate false;
-            }
-        );
-    }
-    
-    outletAlpha
-    {
-        type            surfaces;
-        libs            ("libsampling.so");
-        writeControl    timeStep  //runTime;timeStep;...
-        writeInterval   1;        //1e-4;   1;
-        surfaceFormat   vtk;      //raw;VTK;...
-        fields
-        (
-            alpha.air
-        );
-        interpolationScheme cellPoint;
-
-        surfaces
-        (
-            outlet
-            {
-                type        patch;
-                patches     (outlet);
-                triangulate false;
-            }
-        );
-    }
-    
-    stop
-    {
-        type       stopAtClockTime;
-        libs       ("libutilityFunctionObjects.so");
-        stopTime   24000;
-        action     noWriteNow;
-    }
-}
 
 // ************************************************************************* //
