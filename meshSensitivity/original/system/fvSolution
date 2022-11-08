@@ -1,0 +1,66 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  9
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      fvSolution;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+/*see https://www.openfoam.com/documentation/user-guide/6-solving/6.3-solution-and-algorithm-control */
+
+solvers
+{
+    p
+    {
+        solver          GAMG;
+        tolerance       1e-06;
+        relTol          0.05;
+        smoother        GaussSeidel;
+    }
+
+    Phi
+    {
+        $p;
+    }
+
+    "(U|k|epsilon)"
+    {
+        solver          PBiCGStab;
+        preconditioner  DILU;
+        tolerance       1e-05;
+        relTol          0.1;
+    }
+    /*valid symmeric matrix solvers: GAMG, PBiCGStab, smoothSolver, diagonal;
+      PCG for symmetric matrices, PBiCG for asymmetric */
+}
+
+SIMPLE
+{
+    nNonOrthogonalCorrectors 0;
+    consistent yes;
+}
+
+potentialFlow
+{
+    nNonOrthogonalCorrectors 10;
+}
+
+relaxationFactors
+{
+    equations
+    {
+        U                      0.9;
+        "(k|epsilon|omega)"    0.5;
+    }
+}
+
+
+// ************************************************************************* //
