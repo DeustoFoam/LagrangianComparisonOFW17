@@ -12,7 +12,7 @@ Description
 
 points
 (
-  (0 0 0.025)
+  (0 0 0.03)
 );
 
 fields  (p U);

@@ -12,16 +12,34 @@ Description
 
 \*---------------------------------------------------------------------------*/
 
-start           (0 -0.000625 0.025);
-end             (0  0.000625 0.025);
+start           (0 -0.000625 0.03);
+end             (0  0.000625 0.03);
 nPoints         100;
 
 fields          (p U);
 
-axis            distance; // The independent variable of the graph. Can be "x",
-                          // "y", "z", "xyz" (all coordinates written out), or
-                          // "distance" (from the start point).
+axis            y;
 
-#includeEtc "caseDicts/postProcessing/graphs/graphUniform.cfg"
+// #includeEtc "caseDicts/postProcessing/graphs/graphUniform.cfg"
+type            sets;
+libs            ("libsampling.so");
+
+writeControl    writeTime;
+
+interpolationScheme cellPoint;
+
+setFormat       csv;
+
+sets
+(
+    line
+    {
+        type            lineUniform;
+        axis            $axis;
+        start           $start;
+        end             $end;
+        nPoints         $nPoints;
+    }
+);
 
 // ************************************************************************* //
