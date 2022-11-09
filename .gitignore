@@ -27,5 +27,6 @@ VTK/
 
 runCases/*
 !runCases/*.sh
+!runCases/Results/*
 
 desktop.ini

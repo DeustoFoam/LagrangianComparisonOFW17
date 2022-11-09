@@ -48,7 +48,7 @@ define(Zb, 0)
 define(Zt, calc(Zb + z))
 
 // Number of cells at inner square
-define(Ns, 3)
+define(Ns, 2)
 
 // Number of cells between inner square and circle
 define(Ni, 1)
