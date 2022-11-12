@@ -8,7 +8,7 @@
 FoamFile
 {
     version     2.0;
-    `format'      ascii;
+    format      ascii;
     class       dictionary;
     object      blockMeshDict;
 }
@@ -51,7 +51,7 @@ define(Zt, calc(Zb + z))
 define(Ns, 8)
 
 // Number of cells between inner square and circle
-define(Ni, 2)
+define(Ni, 3)
 
 // Number of cells in the cylinder height
 define(Nz, 300)

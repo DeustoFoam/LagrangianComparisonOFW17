@@ -8,7 +8,7 @@
 FoamFile
 {
     version     2.0;
-    `format'      ascii;
+    format      ascii;
     class       dictionary;
     object      blockMeshDict;
 }
@@ -245,7 +245,7 @@ patches
     
     patch inlet
     (
-        bottomQuad(s3, s0, s1, s2)
+        bottomQuad(s3, s0, s1, s2) // Inner square
         bottomQuad(s3, r3, r0, s0)
         bottomQuad(s2, r2, r3, s3)
         bottomQuad(s1, r1, r2, s2)
