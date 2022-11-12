@@ -26,6 +26,10 @@ boundaryField
         mixingLength    0.5;
         value           uniform 1;
     }
+    inject
+    {
+        $inlet;
+    }
     outlet
     {
         type            inletOutlet;

@@ -7,37 +7,37 @@
 \*---------------------------------------------------------------------------*/
 FoamFile
 {
-    format      binary;
-    class       volVectorField;
-    location    "0";
-    object      U;
+    format      ascii;
+    class       volScalarField;
+    object      p;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-dimensions      [0 1 -1 0 0 0 0];
+dimensions      [0 2 -2 0 0 0 0];
 
-internalField   uniform (0 0 5);
+internalField   uniform 0;
 
 boundaryField
 {
     wall
     {
-        type            fixedValue;
-        value           uniform (0 0 0);
+        type            zeroGradient;
     }
 
     inlet
     {
-        type            fixedValue;
-        value           uniform (0 0 5);
+        type            zeroGradient;
+    }
+    inject
+    {
+        $inlet;
     }
 
     outlet
     {
-        type            zeroGradient;
+        type            fixedValue;
+        value           uniform 0;
     }
-
 }
-
 
 // ************************************************************************* //

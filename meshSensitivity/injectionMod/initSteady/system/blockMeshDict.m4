@@ -8,7 +8,7 @@
 FoamFile
 {
     version     2.0;
-    'format'      ascii;
+    format      ascii;
     class       dictionary;
     object      blockMeshDict;
 }
@@ -48,13 +48,13 @@ define(Zb, 0)
 define(Zt, calc(Zb + z))
 
 // Number of cells at inner square
-define(Ns, 4)
+define(Ns, 6)
 
 // Number of cells between inner square and circle
-define(Ni, 1)
+define(Ni, 3)
 
 // Number of cells in the cylinder height
-define(Nz, 150)
+define(Nz, 200)
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -245,11 +245,16 @@ patches
     
     patch inlet
     (
-        bottomQuad(s3, s0, s1, s2) // Inner square
+        // bottomQuad(s3, s0, s1, s2) // Inner square
         bottomQuad(s3, r3, r0, s0)
         bottomQuad(s2, r2, r3, s3)
         bottomQuad(s1, r1, r2, s2)
         bottomQuad(s0, r0, r1, s1)
+    )
+
+    patch inject
+    (
+        bottomQuad(s3, s0, s1, s2) // Inner square
     )
     
     patch outlet
