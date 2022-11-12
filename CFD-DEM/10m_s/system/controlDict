@@ -14,7 +14,7 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-application     denseParticleFoamMod1;
+application     denseParticleFoam;
 
 startFrom       latestTime; //startTime;
 

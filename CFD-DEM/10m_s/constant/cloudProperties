@@ -150,9 +150,9 @@ subModels
 
         writeReferredParticleCloud no;
 
-        pairModel PairSpringSliderDashpotMod1;
+        pairModel pairSpringSliderDashpot;
 
-        PairSpringSliderDashpotMod1Coeffs
+        pairSpringSliderDashpotCoeffs
         {
             useEquivalentSize   no;
             alpha               0.12; //function of restitution coeff
@@ -162,9 +162,9 @@ subModels
             collisionResolutionSteps 24;
         };
 
-        wallModel wallLocalSpringSliderDashpotMod1;
+        wallModel wallLocalSpringSliderDashpot;
 
-        wallLocalSpringSliderDashpotMod1Coeffs
+        wallLocalSpringSliderDashpotCoeffs
         {
             useEquivalentSize no;
             collisionResolutionSteps 24;
