@@ -2,7 +2,7 @@
 cd ${0%/*} || exit 1    # Run from this directory
 
 # ------ OPTIONS ------ #
-CASE="CFD-DEM"
+CASE="initSteady"
 
 # ----- FUNCTIONS ----- #
 initSteady()
@@ -43,7 +43,7 @@ case $CASE in
     ;;
 
     MP-PIC)
-        caseFolder=/CFD-DEM
+        caseFolder=/MP-PIC
         mkdir -p .$caseFolder
         cp -a -n ..$caseFolder/. .$caseFolder
         chmod a+rwx .$caseFolder/*/Runhalf
