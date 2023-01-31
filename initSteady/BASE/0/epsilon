@@ -9,31 +9,37 @@ FoamFile
 {
     format      ascii;
     class       volScalarField;
-    location    "0.05";
-    object      mu.air;
+    location    "0";
+    object      epsilon;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-dimensions      [1 -1 -1 0 0 0 0];
+dimensions      [0 2 -3 0 0 0 0];
 
-internalField   uniform 2.30049e-05;
+internalField   uniform 1;
 
 boundaryField
 {
-    walls
-    {
-        type            calculated;
-        value           uniform 2.30049e-05;
-    }
     inlet
     {
-        type            calculated;
-        value           uniform 2.30049e-05;
+        type            turbulentMixingLengthDissipationRateInlet;
+        mixingLength    0.5;
+        value           uniform 1;
+    }
+    inject
+    {
+        $inlet;
     }
     outlet
     {
-        type            calculated;
-        value           uniform 2.30049e-05;
+        type            inletOutlet;
+        inletValue      uniform 1;
+        value           uniform 1;
+    }
+    walls
+    {
+        type            epsilonWallFunction;
+        value           uniform 1;
     }
 }
 

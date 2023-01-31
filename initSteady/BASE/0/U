@@ -7,16 +7,41 @@
 \*---------------------------------------------------------------------------*/
 FoamFile
 {
-    format      ascii;
-    class       volScalarField::Internal;
-    location    "0.05";
-    object      cloud:UCoeff;
+    format      binary;
+    class       volVectorField;
+    location    "0";
+    object      U;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-dimensions      [1 0 0 0 0 0 0];
+dimensions      [0 1 -1 0 0 0 0];
 
-value           uniform 0;
+internalField   uniform (0 0 5);
+
+boundaryField
+{
+    wall
+    {
+        type            fixedValue;
+        value           uniform (0 0 0);
+    }
+
+    inlet
+    {
+        type            fixedValue;
+        value           uniform (0 0 5);
+    }
+    inject
+    {
+        $inlet;
+    }
+
+    outlet
+    {
+        type            zeroGradient;
+    }
+
+}
 
 
 // ************************************************************************* //

@@ -9,32 +9,19 @@ FoamFile
 {
     format      ascii;
     class       dictionary;
-    location    "0.05/uniform/lagrangian/cloud";
-    object      cloudOutputProperties;
+    location    "constant";
+    object      momentumTransport;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-injectionModel
-{
-    model1
-    {
-        massInjected    0;
-        nInjections     50;
-        parcelsAddedTotal 0;
-        timeStep0       0.05;
-    }
-}
+simulationType  laminar; //RAS;
 
-patchInteractionModel
+RAS
 {
-    localInteraction
-    {
-        nEscape         2 { 0 };
-        massEscape      2 { 0 };
-        nStick          2 { 0 };
-        massStick       2 { 0 };
-    }
+    RASModel       kEpsilon;
+    
+    turbulence     on;
+    printCoeffs    on;
 }
-
 
 // ************************************************************************* //

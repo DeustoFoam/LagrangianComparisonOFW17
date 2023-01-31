@@ -8,33 +8,14 @@
 FoamFile
 {
     format      ascii;
-    class       dictionary;
-    location    "0.05/uniform/lagrangian/cloud";
-    object      cloudOutputProperties;
+    class       uniformDimensionedVectorField;
+    location    "constant";
+    object      g;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-injectionModel
-{
-    model1
-    {
-        massInjected    0;
-        nInjections     50;
-        parcelsAddedTotal 0;
-        timeStep0       0.05;
-    }
-}
-
-patchInteractionModel
-{
-    localInteraction
-    {
-        nEscape         2 { 0 };
-        massEscape      2 { 0 };
-        nStick          2 { 0 };
-        massStick       2 { 0 };
-    }
-}
+dimensions      [0 1 -2 0 0 0 0];
+value           (0 -9.81 0);
 
 
 // ************************************************************************* //

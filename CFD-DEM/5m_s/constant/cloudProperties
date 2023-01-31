@@ -97,11 +97,11 @@ subModels
             patchName       inlet;
             U0              (0 0 5);
             nParticle       1;
-            //massFlowRate    0.001;    //kg/s -> 299.16e3particles/s = 1g/s
+            //massFlowRate    0.001;  //kg/s -> 299.16e3particles/s = 1g/s
             parcelsPerSecond 150e3;
             flowRateProfile constant 1;
             SOI             0;
-            duration        1;
+            duration        1;        //s
             sizeDistribution
             {
                 type        normal;

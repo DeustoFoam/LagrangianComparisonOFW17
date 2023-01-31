@@ -9,30 +9,45 @@ FoamFile
 {
     format      ascii;
     class       dictionary;
-    location    "0.05/uniform/lagrangian/referredParticleCloud";
-    object      cloudProperties;
+    location    "system";
+    object      controlDict;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-processor0
-{
-    particleCount   0;
-}
+application     simpleFoam;
 
-processor1
-{
-    particleCount   0;
-}
+startFrom       startTime;
 
-processor2
-{
-    particleCount   0;
-}
+startTime       0;
 
-processor3
-{
-    particleCount   0;
-}
+stopAt          endTime;
 
+endTime         50;
+
+deltaT          1;
+
+writeControl    timeStep;
+
+writeInterval   10;
+
+purgeWrite      0;
+
+writeFormat     ascii;
+
+writePrecision  6;
+
+writeCompression off;
+
+timeFormat      general;
+
+timePrecision   6;
+
+runTimeModifiable yes;
+
+functions
+{
+  #includeFunc  probes
+  #includeFunc  graphUniform
+}
 
 // ************************************************************************* //

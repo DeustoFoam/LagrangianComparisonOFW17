@@ -9,22 +9,15 @@ FoamFile
 {
     format      ascii;
     class       dictionary;
-    location    "0.05/uniform";
-    object      time;
+    location    "constant";
+    object      transportProperties;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-beginTime       0;
+continuousPhaseName   air;
+transportModel        Newtonian;
 
-value           0.0500000000000000375;
-
-name            "0.05";
-
-index           50;
-
-deltaT          0.001;
-
-deltaT0         0.001;
-
+rho   [1 -3 0 0 0 0 0] 1.661;     //air 1.205   Ar 1.661    kg/m^3 @NTP (1atm, 20ºC)
+nu    [0 2 -1 0 0 0 0] 1.385e-05; //air 1.82e-5 Ar 1.385e-5 m^2/s  @NTP (1atm, 20ºC)
 
 // ************************************************************************* //
