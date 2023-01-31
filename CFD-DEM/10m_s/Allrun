@@ -8,6 +8,12 @@ m4 system/blockMeshDict.m4 > system/blockMeshDict
 
 runApplication blockMesh
 
+sourceFolder='../../initSteady/'$(basename $PWD)''
+
+mapFields $sourceFolder -consistent -sourceTime 'latestTime'
+
+mv './0/U' './0/U.air'
+
 runApplication decomposePar
 
 runParallel $(getApplication)

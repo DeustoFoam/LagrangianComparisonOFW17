@@ -27,12 +27,21 @@ boundaryField
         intensity       0.05;
         value           uniform 1;
     }
+
+    inject
+    {
+        type            turbulentIntensityKineticEnergyInlet;
+        intensity       0.05;
+        value           uniform 1;
+    }
+
     outlet
     {
         type            inletOutlet;
         inletValue      uniform 1;
         value           uniform 1;
     }
+    
     walls
     {
         type            kqRWallFunction;

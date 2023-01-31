@@ -1,8 +1,16 @@
 #!/bin/sh
 cd ${0%/*} || exit 1    # Run from this directory
 
+echo please choose an option:
+echo   1. meshSensitivity_fluid
+echo   2. CFD-DEM
+echo   3. MP-PIC
+echo   4. initSteady
+
+read choiche
+
 # ------ OPTIONS ------ #
-CASE="initSteady"
+FINENESS="finer_1"
 
 # ----- FUNCTIONS ----- #
 initSteady()
@@ -20,9 +28,9 @@ initSteady()
     for dep in .$caseFolder/*/Allrun; do "$dep"; done
 }
 
-case $CASE in
+case $choiche in
 
-    meshSensitivity_fluid)
+    1) # meshSensitivity_fluid)
         caseFolder=/meshSensitivity/fluidOnly
         mkdir -p .$caseFolder
         cp -a -n ..$caseFolder/. .$caseFolder
@@ -34,23 +42,33 @@ case $CASE in
         for dep in .$caseFolder/*/Allrun; do "$dep"; done
     ;;
 
-    CFD-DEM)
+    2) # CFD-DEM)
+        [ ! -d "./initSteady/" ] && initSteady
         caseFolder=/CFD-DEM
         mkdir -p .$caseFolder
         cp -a -n ..$caseFolder/. .$caseFolder
-        chmod a+rwx .$caseFolder/*/Runhalf
-        for dep in .$caseFolder/*/Runhalf; do "$dep"; done
+        chmod a+rwx .$caseFolder/*/Allrun
+        for dep in .$caseFolder/*
+        do
+            cp -a -n ../meshSensitivity/fluidOnly/$FINENESS/. $dep/
+        done
+        for dep in .$caseFolder/*/Allrun; do "$dep"; done
     ;;
 
-    MP-PIC)
+    3) # MP-PIC)
+        [ ! -d "./initSteady/" ] && initSteady
         caseFolder=/MP-PIC
         mkdir -p .$caseFolder
         cp -a -n ..$caseFolder/. .$caseFolder
-        chmod a+rwx .$caseFolder/*/Runhalf
-        for dep in .$caseFolder/*/Runhalf; do "$dep"; done
+        chmod a+rwx .$caseFolder/*/Allrun
+        for dep in .$caseFolder/*
+        do
+            cp -a -n ../meshSensitivity/fluidOnly/$FINENESS/. $dep/
+        done
+        for dep in .$caseFolder/*/Allrun; do "$dep"; done
     ;;
 
-    initSteady)
+    4) # initSteady)
         initSteady
     ;;
 

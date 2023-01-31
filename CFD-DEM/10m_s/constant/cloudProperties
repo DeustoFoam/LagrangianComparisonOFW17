@@ -94,7 +94,7 @@ subModels
             type            patchInjection;
             massTotal       0.001;    //kg
             parcelBasisType fixed;
-            patchName       inlet;
+            patchName       inject;
             U0              (0 0 10);
             nParticle       1;
             //massFlowRate    0.001;    //kg/s -> 299.16e3particles/s = 1g/s
@@ -131,7 +131,7 @@ subModels
                 mu   0.1;
             }
 
-            "inlet|outlet"
+            "inlet|inject|outlet"
             {
                 type escape;
             }

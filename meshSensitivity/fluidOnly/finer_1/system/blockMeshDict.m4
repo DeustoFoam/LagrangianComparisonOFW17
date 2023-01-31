@@ -51,7 +51,7 @@ define(Zt, calc(Zb + z))
 define(Ns, 6)
 
 // Number of cells between inner square and circle
-define(Ni, 3)
+define(Ni, 2)
 
 // Number of cells in the cylinder height
 define(Nz, 200)
@@ -245,11 +245,16 @@ patches
     
     patch inlet
     (
-        bottomQuad(s3, s0, s1, s2)
+        // bottomQuad(s3, s0, s1, s2) // Inner square
         bottomQuad(s3, r3, r0, s0)
         bottomQuad(s2, r2, r3, s3)
         bottomQuad(s1, r1, r2, s2)
         bottomQuad(s0, r0, r1, s1)
+    )
+
+    patch inject
+    (
+        bottomQuad(s3, s0, s1, s2) // Inner square
     )
     
     patch outlet
