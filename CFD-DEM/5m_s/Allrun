@@ -10,7 +10,7 @@ runApplication blockMesh
 
 sourceFolder='../../initSteady/'$(basename $PWD)''
 
-mapFields $sourceFolder -consistent -sourceTime 'latestTime'
+runApplication mapFields $sourceFolder -consistent -sourceTime 'latestTime'
 
 mv './0/U' './0/U.air'
 
