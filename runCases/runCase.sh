@@ -9,9 +9,6 @@ echo   4. initSteady
 
 read choiche
 
-# ------ OPTIONS ------ #
-FINENESS="finer_1"
-
 # ----- FUNCTIONS ----- #
 initSteady()
 {
@@ -50,7 +47,7 @@ case $choiche in
         chmod a+rwx .$caseFolder/*/Allrun
         for dep in .$caseFolder/*
         do
-            cp -a -n ../meshSensitivity/fluidOnly/$FINENESS/. $dep/
+            cp -a -n ../meshSensitivity/fluidOnly/finer_1/. $dep/
         done
         for dep in .$caseFolder/*/Allrun; do "$dep"; done
     ;;
@@ -63,7 +60,7 @@ case $choiche in
         chmod a+rwx .$caseFolder/*/Allrun
         for dep in .$caseFolder/*
         do
-            cp -a -n ../meshSensitivity/fluidOnly/$FINENESS/. $dep/
+            cp -a -n ../meshSensitivity/fluidOnly/original/. $dep/
         done
         for dep in .$caseFolder/*/Allrun; do "$dep"; done
     ;;

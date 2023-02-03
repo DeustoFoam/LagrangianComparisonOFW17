@@ -22,7 +22,7 @@ runParallel $(getApplication)
 
 runApplication reconstructPar
 
-#    rm -r ./processor*
+    rm -r ./processor*
 
 runApplication foamToVTK
 
