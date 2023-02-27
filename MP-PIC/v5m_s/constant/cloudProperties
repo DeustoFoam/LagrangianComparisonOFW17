@@ -14,7 +14,7 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-type        collidingCloud;
+type        MPPICCloud;
 
 solution
 {
@@ -59,12 +59,10 @@ constantProperties
     //minParcelMass   1e-15;
 
     rho0            7980;
-    youngsModulus   2.1e7;//2.1e9; 2.1e11;
-    poissonsRatio   0.3;
+    //youngsModulus   2.1e7;//2.1e9; 2.1e11;
+    //poissonsRatio   0.3;
 
     constantVolume  false;
-
-    //alphaMax        0.99; //not needed by collidingCloud
 }
 
 subModels
@@ -91,17 +89,19 @@ subModels
     {
         model1
         {
-            type            patchInjection;
-            massTotal       0.001;    //kg
-            parcelBasisType fixed;
-            patchName       inject;
-            U0              (0 0 10);
-            nParticle       1;
-            //massFlowRate    0.001;    //kg/s -> 299.16e3particles/s = 1g/s
-            parcelsPerSecond 300e3;
-            flowRateProfile constant 1;
+            type            coneInjection;
+ 
+            // Times
             SOI             0;
             duration        1;
+ 
+            // Quantities
+            massTotal       0; // <-- not used with these settings
+            parcelBasisType fixed;
+            parcelsPerSecond 150e3;
+            flowRateProfile constant 1;
+            nParticle       1;
+ 
             sizeDistribution
             {
                 type        normal;
@@ -113,6 +113,30 @@ subModels
                     maxValue    150e-6;
                 }
             }
+ 
+            // Geometry
+            position        (0 0 1e-3);
+            direction       (0 0 1);
+            thetaInner      0;
+            thetaOuter      0;
+ 
+            // - Inject at a point
+            //injectionMethod point;
+            injectionMethod disc;
+            dInner          0;
+            dOuter          1e-3;
+ 
+            // Velocity
+ 
+            // - Inject with constant velocity
+            flowType        constantVelocity;
+            Umag            5;
+ 
+            //flowType        flowRateAndDischarge;
+            //Cd              0.9;
+ 
+            //flowType        pressureDrivenVelocity;
+            //Pinj            10e5;
         }
     }
 
@@ -142,47 +166,9 @@ subModels
 
     surfaceFilmModel none;
 
-    collisionModel pairCollision;
+    collisionModel none;
 
-    pairCollisionCoeffs
-    {
-        maxInteractionDistance  100e-6;
-
-        writeReferredParticleCloud no;
-
-        pairModel pairSpringSliderDashpot;
-
-        pairSpringSliderDashpotCoeffs
-        {
-            useEquivalentSize   no;
-            alpha               0.12; //function of restitution coeff
-            b                   1.5;  //=1->linear =3/2->Hertz
-            mu                  0.52; //friction coeff
-            cohesionEnergyDensity 0;
-            collisionResolutionSteps 24;
-        };
-
-        wallModel wallLocalSpringSliderDashpot;
-
-        wallLocalSpringSliderDashpotCoeffs
-        {
-            useEquivalentSize no;
-            collisionResolutionSteps 24;
-            walls
-            {
-                youngsModulus   1e7;
-                poissonsRatio   0.23;
-                alpha           0.12; //function of restitution coeff
-                b               1.5;  //=1->linear =3/2->Hertz
-                mu              0.43; //friction coeff
-                cohesionEnergyDensity 0;
-                }
-        };
-
-        U     U.air;
-    }
-
-    /*packingModel explicit;
+    packingModel explicit;
 
     explicitCoeffs
     {
@@ -239,7 +225,7 @@ subModels
             alphaPacked 0.65;
             e 0.9;
         }
-    }*/
+    }
 
     stochasticCollisionModel none;
 

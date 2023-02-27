@@ -89,17 +89,19 @@ subModels
     {
         model1
         {
-            type            patchInjection;
-            massTotal       0.001;    //kg
-            parcelBasisType fixed;
-            patchName       inject;
-            U0              (0 0 10);
-            nParticle       1;
-            //massFlowRate    0.001;    //kg/s -> 299.16e3particles/s = 1g/s
-            parcelsPerSecond 300e3;
-            flowRateProfile constant 1;
+            type            coneInjection;
+ 
+            // Times
             SOI             0;
             duration        1;
+ 
+            // Quantities
+            massTotal       0; // <-- not used with these settings
+            parcelBasisType fixed;
+            parcelsPerSecond 300e3;
+            flowRateProfile constant 1;
+            nParticle       1;
+ 
             sizeDistribution
             {
                 type        normal;
@@ -111,6 +113,30 @@ subModels
                     maxValue    150e-6;
                 }
             }
+ 
+            // Geometry
+            position        (0 0 1e-3);
+            direction       (0 0 1);
+            thetaInner      0;
+            thetaOuter      0;
+ 
+            // - Inject at a point
+            //injectionMethod point;
+            injectionMethod disc;
+            dInner          0;
+            dOuter          1e-3;
+ 
+            // Velocity
+ 
+            // - Inject with constant velocity
+            flowType        constantVelocity;
+            Umag            10;
+ 
+            //flowType        flowRateAndDischarge;
+            //Cd              0.9;
+ 
+            //flowType        pressureDrivenVelocity;
+            //Pinj            10e5;
         }
     }
 
