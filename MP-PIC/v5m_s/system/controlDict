@@ -69,7 +69,7 @@ functions
             inlet
             {
                 type        patch;
-                patches     (inlet);
+                patches     ("inlet|inject");
                 triangulate false;
             }
         );
@@ -97,14 +97,6 @@ functions
                 triangulate false;
             }
         );
-    }
-    
-    stop
-    {
-        type       stopAtClockTime;
-        libs       ("libutilityFunctionObjects.so");
-        stopTime   50000;
-        action     noWriteNow;
     }
 }
 
