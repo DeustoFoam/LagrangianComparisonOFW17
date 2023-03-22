@@ -4,20 +4,16 @@
    \\    /   O peration     | Website:  https://openfoam.org
     \\  /    A nd           | Version:  9
      \\/     M anipulation  |
+-------------------------------------------------------------------------------
+Description
+    For specified fields, writes out the initial residuals for the first
+    solution of each time step; for non-scalar fields (e.g. vectors), writes
+    the largest of the residuals for each component (e.g. x, y, z).
+
 \*---------------------------------------------------------------------------*/
-FoamFile
-{
-    format      ascii;
-    class       dictionary;
-    location    "constant";
-    object      transportProperties;
-}
-// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-continuousPhaseName   air;
-transportModel        Newtonian;
+#includeEtc "caseDicts/postProcessing/numerical/residuals.cfg"
 
-rho.air         1.661; //air 1.205 kg/m^3; Ar 1.661 kg/m^3 @NTP (1atm, 20ºC)
-nu              1.385e-05; //air 1.82e-5 m^2/s; Ar 1.385e-5 m^2/s @NTP (1atm, 20ºC)
+fields  (p U.air);
 
 // ************************************************************************* //

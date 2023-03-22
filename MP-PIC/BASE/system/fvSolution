@@ -23,31 +23,29 @@ solvers
 
     p
     {
-        solver          GAMG;
-        tolerance       1e-06;
-        relTol          0.05;
+        solver          smoothSolver;
         smoother        GaussSeidel;
+        tolerance       5e-04;
+        relTol          0.05;
     }
 
     pFinal
     {
-        solver          GAMG;
-        tolerance       1e-06;
+        $p
         relTol          0;
-        smoother        GaussSeidel;
     }
 
-    "(U|k|epsilon).*"
+    "(U|k|epsilon|omega).*"
     {
-        solver          PBiCG;
+        solver          PBiCGStab;
         preconditioner  DILU;
         tolerance       1e-05;
         relTol          0.1;
     }
 
-    "(U|k|epsilon).*Final"
+    "(U|k|epsilon|omega).*Final"
     {
-        solver          PBiCG;
+        solver          PBiCGStab;
         preconditioner  DILU;
         tolerance       1e-05;
         relTol          0;
@@ -56,60 +54,20 @@ solvers
 
     cloud:alpha
     {
-        solver          GAMG;
+        solver          smoothSolver;
+        smoother        GaussSeidel;
         tolerance       1e-06;
         relTol          0;
-        smoother        GaussSeidel;
     }
 }
 
 PIMPLE
 {
-    nOuterCorrectors 50; //pressure-momentum correction loops
     nCorrectors     2;   //pressure correction loops
-    momentumPredictor yes;
-    nNonOrthogonalCorrectors 0;
-    pRefCell        0;
-    pRefValue       0;
-
-    residualControl
-    {
-        U.*       1e-5;
-        p       5e-4;
-        "(k|epsilon|omega).*" 1e-5;
-    }
-    outerCorrectorResidualControl
-    {
-        U.*
-        {
-            tolerance 1e-5;
-            relTol    0.01;
-        }
-        p
-        {
-            tolerance 5e-4;
-            relTol    0.01;
-        }
-        "(k|epsilon|omega).*"
-        {
-            tolerance 1e-5;
-            relTol    0;
-        }
-    }
 }
 
 relaxationFactors
 {
-    fields
-    {
-        p       0.3;
-        pFinal    1;
-    }
-    equations
-    {
-        "(U|k|epsilon|omega).*"       0.5;
-        "(U|k|epsilon|omega).*Final"    1;
-    }
 }
 
 
