@@ -27,7 +27,7 @@ solution
         rho.air         cell;
         U.air           cellPoint;
         mu.air          cell;
-        alpha.air       cell;
+        alpha.air       cellPoint;
         //curlUcDt        cell; //used for lift force calc.
         //DucDt.air cell; //used for pressure Gradient force calc.
         /*Available schemes: cell, cellPoint, cellPatchConstranined,

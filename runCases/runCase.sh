@@ -60,7 +60,7 @@ case $choiche in
         chmod a+rwx .$caseFolder/*/Allrun
         for dep in .$caseFolder/*
         do
-            cp -a -n ../meshSensitivity/fluidOnly/original/. $dep/
+            cp -a -n ../meshSensitivity/fluidOnly/finer_1/. $dep/
         done
         for dep in .$caseFolder/*/Allrun; do "$dep"; done
     ;;
