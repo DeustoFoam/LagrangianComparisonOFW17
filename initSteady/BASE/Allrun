@@ -4,7 +4,6 @@ cd ${0%/*} || exit 1    # Run from this directory
 # Source tutorial run functions
 . $WM_PROJECT_DIR/bin/tools/RunFunctions
 
-echo '\n'
 echo "running case: /${PWD##*/}"  #displays the folder name
 
 echo "m4: generating blockMeshDict"
@@ -23,5 +22,7 @@ else
     echo "Running on a single core"
     runApplication $(getApplication)
 fi
+
+echo '\n'
 
 #------------------------------------------------------------------------------

@@ -1,5 +1,6 @@
 /*--------------------------------*- C++ -*----------------------------------*/
 varVelocity           5;
 varEndTime         0.10;
+varWriteInt        2e-4;
 varParcel_s       300e3;
 varDeltaT          2e-5;

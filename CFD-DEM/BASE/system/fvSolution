@@ -25,13 +25,14 @@ solvers
     {
         solver          smoothSolver;
         smoother        GaussSeidel;
-        tolerance       5e-04;
+        tolerance       5e-02;
         relTol          0.05;
     }
 
     pFinal
     {
         $p
+        tolerance       1e-3;
         relTol          0;
     }
 
@@ -54,7 +55,7 @@ solvers
 
     cloud:alpha
     {
-        solver          smoothSolver;
+        solver          GAMG;
         smoother        GaussSeidel;
         tolerance       1e-06;
         relTol          0;
@@ -63,7 +64,7 @@ solvers
 
 PIMPLE
 {
-    nCorrectors     2;   //pressure correction loops
+    nCorrectors     3;   //pressure correction loops
 }
 
 relaxationFactors

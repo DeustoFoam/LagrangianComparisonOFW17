@@ -25,13 +25,14 @@ solvers
     {
         solver          smoothSolver;
         smoother        GaussSeidel;
-        tolerance       5e-04;
+        tolerance       5e-2;
         relTol          0.05;
     }
 
     pFinal
     {
         $p
+        tolerance       1e-3;
         relTol          0;
     }
 
@@ -54,7 +55,7 @@ solvers
 
     cloud:alpha
     {
-        solver          smoothSolver;
+        solver          GAMG;
         smoother        GaussSeidel;
         tolerance       1e-06;
         relTol          0;
@@ -63,12 +64,61 @@ solvers
 
 PIMPLE
 {
-    nCorrectors     2;   //pressure correction loops
+    nCorrectors     3;   //pressure correction loops
 }
 
 relaxationFactors
 {
 }
+
+/*PIMPLE
+{
+    nOuterCorrectors 50; //pressure-momentum correction loops
+    nCorrectors     2;   //pressure correction loops
+    momentumPredictor yes;
+    nNonOrthogonalCorrectors 0;
+    pRefCell        0;
+    pRefValue       0;
+
+    residualControl
+    {
+        U.*       1e-5;
+        p         5e-4;
+        "(k|epsilon|omega).*" 1e-5;
+    }
+    outerCorrectorResidualControl
+    {
+        U.*
+        {
+            tolerance 1e-5;
+            relTol    0.01;
+        }
+        p
+        {
+            tolerance 5e-4;
+            relTol    0.01;
+        }
+        "(k|epsilon|omega).*"
+        {
+            tolerance 1e-5;
+            relTol    0;
+        }
+    }
+}
+
+relaxationFactors
+{
+    fields
+    {
+        p       0.7;
+        pFinal    1;
+    }
+    equations
+    {
+        "(U|k|epsilon|omega).*"       0.7;
+        "(U|k|epsilon|omega).*Final"    1;
+    }
+}*/
 
 
 // ************************************************************************* //

@@ -9,6 +9,8 @@ echo   4. initSteady
 
 read choiche
 
+echo '\n'
+
 # ----- FUNCTIONS ----- #
 initSteady()
 {
