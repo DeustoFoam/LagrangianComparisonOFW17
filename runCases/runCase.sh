@@ -76,7 +76,7 @@ case $choiche in
     ;;
 
     *)
-        echo -n "unknown"
+        echo -n "Unknown option: $choice"
     ;;
 
 esac

@@ -4,7 +4,7 @@ cd ${0%/*} || exit 1    # Run from this directory
 # Source tutorial run functions
 . $WM_PROJECT_DIR/bin/tools/RunFunctions
 
-FILE=./log.denseParticleFoam*
+FILE=./log.denseParticleFoam
 if test -f "$FILE"; then
     echo "remove log.denseParticleFoam to continue"
 else
