@@ -27,4 +27,11 @@ else
         rm -r ./processor*
 
     runApplication foamToVTK
+
+    # extract powder flow at outlet
+        rm times.csv
+        rm escaped.csv
+        grep "Time = 0." log.denseParticleFoam > times.csv
+        grep -A 2 "patch inlet|" log.denseParticleFoam | grep "escape" > escaped.csv
+
 fi

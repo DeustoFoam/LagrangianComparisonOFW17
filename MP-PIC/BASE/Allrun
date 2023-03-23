@@ -26,4 +26,8 @@ runApplication reconstructPar
 
 runApplication foamToVTK
 
+# extract powder flow at outlet
+grep "Time = 0." log.denseParticleFoam > times.csv
+grep -A 2 "patch inlet|" log.denseParticleFoam | grep "escape" > escaped.csv
+
 #------------------------------------------------------------------------------
