@@ -39,7 +39,7 @@ define(sc, 0.375)
 define(r, 0.625)
 
 // Height of cylinder
-define(z, 50.0)
+define(z, 100.0)
 
 // Base z
 define(Zb, 0)
@@ -54,7 +54,7 @@ define(Ns, 8)
 define(Ni, 3)
 
 // Number of cells in the cylinder height
-define(Nz, 300)
+define(Nz, 600)
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
