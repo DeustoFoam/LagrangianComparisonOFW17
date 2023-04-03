@@ -48,13 +48,13 @@ define(Zb, 0)
 define(Zt, calc(Zb + z))
 
 // Number of cells at inner square
-define(Ns, 20)
+define(Ns, 6)
 
 // Number of cells between inner square and circle
-define(Ni, 5)
+define(Ni, 2)
 
 // Number of cells in the cylinder height
-define(Nz, 1500)
+define(Nz, 400)
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
