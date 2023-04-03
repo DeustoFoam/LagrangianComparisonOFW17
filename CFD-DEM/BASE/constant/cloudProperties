@@ -106,7 +106,7 @@ subModels
                     d         63.65e-6;
                     n            5.177;
                     minValue     40e-6;
-                    maxValue    110e-6;
+                    maxValue    150e-6;
                 }
                 normalDistribution
                 {

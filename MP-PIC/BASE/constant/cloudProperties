@@ -104,7 +104,7 @@ subModels
                     d         63.65e-6;
                     n            5.177;
                     minValue     40e-6;
-                    maxValue    110e-6;
+                    maxValue    150e-6;
                 }
             }
  
@@ -176,22 +176,6 @@ subModels
         {
             type absolute;
             e 0.9;
-        }
-    }
-
-    implicitCoeffs
-    {
-        alphaMin 0.0001;
-        rhoMin 1.0;
-        applyLimiting true;
-        applyGravity false;
-        particleStressModel
-        {
-            type HarrisCrighton;
-            alphaPacked 0.65;
-            pSolid 5.0;
-            beta 2.0;
-            eps 1.0e-2;
         }
     }
 
