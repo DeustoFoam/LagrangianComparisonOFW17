@@ -69,18 +69,17 @@ SIMPLE
     }
 }
 
+potentialFlow
+{
+    nNonOrthogonalCorrectors 10;
+}
+
 relaxationFactors
 {
-
-    fields
-    {
-        p               0.7;
-    }
-
     equations
     {
-        U                      0.7;
-        "(k|epsilon|omega)"    0.7;
+        U                      0.9;
+        "(k|epsilon|omega)"    0.5;
     }
 }
 

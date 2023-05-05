@@ -39,6 +39,7 @@ case $choiche in
         done
         chmod a+rwx .$caseFolder/*/Allrun
         for dep in .$caseFolder/*/Allrun; do "$dep"; done
+        find .$caseFolder/ -name postProcessing -type d -exec rsync -avz --relative {}/ .$caseFolder/results/ \;
     ;;
 
     2) # CFD-DEM)
