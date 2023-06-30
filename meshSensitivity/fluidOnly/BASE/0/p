@@ -29,11 +29,6 @@ boundaryField
         type            zeroGradient;
     }
 
-    inject
-    {
-        type            zeroGradient;
-    }
-
     outlet
     {
         type            fixedValue;

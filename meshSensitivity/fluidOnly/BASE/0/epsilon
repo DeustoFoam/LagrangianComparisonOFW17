@@ -27,13 +27,6 @@ boundaryField
         value           uniform 1;
     }
 
-    inject
-    {
-        type            turbulentMixingLengthDissipationRateInlet;
-        mixingLength    0.5;
-        value           uniform 1;
-    }
-
     outlet
     {
         type            inletOutlet;

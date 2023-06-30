@@ -28,13 +28,6 @@ boundaryField
         value           uniform 1;
     }
 
-    inject
-    {
-        type            turbulentIntensityKineticEnergyInlet;
-        intensity       0.05;
-        value           uniform 1;
-    }
-
     outlet
     {
         type            inletOutlet;

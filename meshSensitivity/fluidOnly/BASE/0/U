@@ -31,13 +31,7 @@ boundaryField
         type            fixedValue;
         value           uniform (0 0 5);
     }
-
-    inject
-    {
-        type            fixedValue;
-        value           uniform (0 0 5);
-    }
-
+    
     outlet
     {
         type            zeroGradient;
