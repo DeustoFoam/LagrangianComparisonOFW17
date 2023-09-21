@@ -50,7 +50,7 @@ case $choiche in
         chmod a+rwx .$caseFolder/*/Allrun
         for dep in .$caseFolder/*
         do
-            cp -a -n ../meshSensitivity/fluidOnly/chosen/. $dep/
+            # cp -a -n ../meshSensitivity/fluidOnly/chosen/. $dep/
             cp -a -n .$caseFolder/BASE/. $dep/
         done
             rm -r .$caseFolder/BASE
@@ -65,7 +65,7 @@ case $choiche in
         chmod a+rwx .$caseFolder/*/Allrun
         for dep in .$caseFolder/*
         do
-            cp -a -n ../meshSensitivity/fluidOnly/chosen/. $dep/
+            # cp -a -n ../meshSensitivity/fluidOnly/chosen/. $dep/
             cp -a -n .$caseFolder/BASE/. $dep/
         done
             rm -r .$caseFolder/BASE
