@@ -1,6 +1,6 @@
 /*--------------------------------*- C++ -*----------------------------------*/
 varVelocity           5;
-varEndTime         0.20;
+varEndTime         0.40;
 varWriteInt        1e-3;
 varParcel_s       150e3;
 varInjParcel_s     1515;  // varParcel_s/n_injectors
