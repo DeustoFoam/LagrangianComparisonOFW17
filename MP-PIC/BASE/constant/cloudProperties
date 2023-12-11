@@ -81,7 +81,7 @@ subModels
 
     injectionModels
     {
-        model1
+        model0
         {
             type            coneInjection;
  
@@ -90,11 +90,11 @@ subModels
             duration        1;
  
             // Quantities
-            massTotal                    0; // <-- not used with these settings
-            parcelBasisType          fixed;
-            parcelsPerSecond  $varParcel_s;
-            flowRateProfile     constant 1;
-            nParticle                    1;
+            massTotal                       0; // <-- not used with these settings
+            parcelBasisType             fixed;
+            parcelsPerSecond  $varInjParcel_s;
+            flowRateProfile        constant 1;
+            nParticle                       1;
  
             sizeDistribution
             {
@@ -109,14 +109,14 @@ subModels
             }
  
             // Geometry
-            position        (0 0 1e-3);
+            position        (0 0 0);
             direction       (0 0 1);
             thetaInner      0;
             thetaOuter      0;
  
             // - Inject at a point
-            //injectionMethod point;
-            injectionMethod disc;
+            injectionMethod point;
+            //injectionMethod disc;
             dInner          0;
             dOuter          1e-3;
  
@@ -132,6 +132,8 @@ subModels
             //flowType        pressureDrivenVelocity;
             //Pinj            10e5;
         }
+        #include "$FOAM_CASE/constant/pointInjectors"
+        model0 {duration 0;}
     }
 
     dispersionModel none;
