@@ -1,4 +1,4 @@
-# README for OFW17_caseFilesREADME.txt
+# README
 
 This work uses OpenFOAM v9. It does not require the installation of other resources.
 
